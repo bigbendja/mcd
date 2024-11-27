@@ -1,0 +1,5 @@
+{
+    "central_server_url": "http://logs.central-server.com",
+    "max_retry_attempts": 5,
+    "retry_interval_seconds": 10
+}
