@@ -1,0 +1,31 @@
+{
+    "cpu_threshold": 0.85,
+    "memory_threshold": 0.8,
+    "disk_threshold": 0.75,
+    "network_max_bandwidth": 500.0,
+    "temperature_threshold": 80.0,
+    "alert_policy": {
+        "retry_attempts": 3,
+        "retry_interval": 300,
+        "cooldown_period": 600
+    },
+    "retention_policy": {
+        "max_logs": 10000,
+        "retention_period": 2592000
+    },
+    "notification_channels": {
+        "email": "admin@company.com",
+        "sms": "+1234567890",
+        "webhook": "https://webhook.site/unique-id"
+    },
+    "audit_logging": {
+        "enabled": true,
+        "log_level": "DEBUG",
+        "log_storage_limit": 5000
+    },
+    "performance_monitoring": {
+        "sampling_interval": 60,
+        "trend_analysis_duration": 600,
+        "scaling_factor": 1.1
+    }
+}
