@@ -1,0 +1,50 @@
+{
+    "performance_analysis": {
+        "sample_interval": 60,
+        "retention_period": 86400,
+        "alert_thresholds": {
+            "cpu": 0.85,
+            "memory": 0.80,
+            "disk_io": 100,
+            "network_io": 50,
+            "response_time": 200
+        }
+    },
+    "parameter_tuning": {
+        "tuning_interval": 300,
+        "stabilization_period": 600,
+        "tolerance": 0.05,
+        "parameters": [
+            {
+                "name": "cpu_allocation",
+                "min_value": 0.2,
+                "max_value": 0.9,
+                "adjustment_step": 0.05,
+                "target_metric": "cpu_usage"
+            },
+            {
+                "name": "memory_allocation",
+                "min_value": 0.2,
+                "max_value": 0.9,
+                "adjustment_step": 0.05,
+                "target_metric": "memory_usage"
+            }
+        ]
+    },
+    "resource_scaling": {
+        "thresholds": {
+            "cpu": 0.85,
+            "memory": 0.85
+        },
+        "scaling_factor": 1.2
+    },
+    "self_optimized_config_generation": {
+        "optimization_criteria": {
+            "cpu_usage": 0.7,
+            "memory_usage": 0.7,
+            "response_time": 150
+        },
+        "evaluation_duration": 300,
+        "max_combinations": 100
+    }
+}
