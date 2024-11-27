@@ -1,0 +1,41 @@
+{
+    "python_interpreter_path": "/usr/bin/python3",
+    "cpp_compiler_path": "/usr/bin/g++",
+    "rust_compiler_path": "/usr/bin/rustc",
+    
+    "supervised_model": {
+        "default_hyperparameters": {
+            "learning_rate": 0.01,
+            "batch_size": 64,
+            "epochs": 100
+        },
+        "evaluation_threshold": 0.85
+    },
+
+    "unsupervised_model": {
+        "anomaly_detection": {
+            "sensitivity": 0.9,
+            "max_iterations": 300
+        }
+    },
+
+    "reinforcement_learning": {
+        "agent": {
+            "exploration_rate": 0.1,
+            "discount_factor": 0.95,
+            "learning_rate": 0.005
+        },
+        "policy_update_interval": 50
+    },
+
+    "logging": {
+        "log_level": "INFO",
+        "log_file_path": "/var/log/ai_ml/operations.log",
+        "max_log_size_mb": 50
+    },
+
+    "audit": {
+        "enable_audit_trail": true,
+        "audit_log_path": "/var/log/ai_ml/audit.log"
+    }
+}
