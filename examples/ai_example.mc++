@@ -1,0 +1,72 @@
+// Archivo: ai_example.mc++
+// Descripción: Ejemplo de implementación básica de algoritmos de IA en MC++
+// Propósito: Demostrar la creación de una red neuronal sencilla en MC++ y su uso en una tarea de clasificación
+
+IMPORTAR "math" // Importa funciones matemáticas esenciales
+
+// Definición de la estructura de una neurona en una capa
+STRUCT Neuron {
+    pesos: ARRAY<FLOAT>
+    sesgo: FLOAT
+}
+
+// Definición de la estructura de la red neuronal
+STRUCT NeuralNetwork {
+    capas: ARRAY<ARRAY<Neuron>>
+}
+
+// Función de activación (ReLU) para la neurona
+FUNC ReLU(x: FLOAT): FLOAT {
+    RETORNAR SI x > 0 ENTONCES x SINO 0.0
+}
+
+// Inicialización de una red neuronal con capas y neuronas
+FUNC inicializarRedNeuronas(num_capas: INT, num_neuronas: ARRAY<INT>): NeuralNetwork {
+    VAR capas = ARRAY<ARRAY<Neuron>>()
+
+    PARA i DESDE 0 HASTA num_capas {
+        VAR capa = ARRAY<Neuron>()
+        PARA j DESDE 0 HASTA num_neuronas[i] {
+            VAR neuron = Neuron(pesos=GENERAR_ALEATORIO(num_neuronas[i]), sesgo=GENERAR_ALEATORIO())
+            capa.AGREGAR(neuron)
+        }
+        capas.AGREGAR(capa)
+    }
+
+    RETORNAR NeuralNetwork(capas=capas)
+}
+
+// Propagación hacia adelante en la red neuronal
+FUNC propagarAdelante(red: NeuralNetwork, entrada: ARRAY<FLOAT>): ARRAY<FLOAT> {
+    VAR salida = entrada
+
+    PARA capa EN red.capas {
+        VAR nueva_salida = ARRAY<FLOAT>()
+        PARA neurona EN capa {
+            VAR sumatoria = 0.0
+            PARA i DESDE 0 HASTA LONGITUD(neurona.pesos) {
+                sumatoria = sumatoria + neurona.pesos[i] * salida[i]
+            }
+            sumatoria = sumatoria + neurona.sesgo
+            nueva_salida.AGREGAR(ReLU(sumatoria))
+        }
+        salida = nueva_salida
+    }
+
+    RETORNAR salida
+}
+
+// Función principal para probar la red neuronal
+FUNC main() {
+    MOSTRAR("Ejemplo de IA: Red Neuronal Simple en MC++")
+
+    VAR num_capas = 3
+    VAR num_neuronas = [3, 5, 2] // Ejemplo de una red de 3 capas con diferentes neuronas por capa
+
+    VAR red = inicializarRedNeuronas(num_capas, num_neuronas)
+
+    VAR entrada = [0.5, -1.2, 3.3]
+    VAR salida = propagarAdelante(red, entrada)
+
+    MOSTRAR("Salida de la red neuronal:", salida)
+}

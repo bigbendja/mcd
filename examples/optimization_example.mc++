@@ -1,0 +1,71 @@
+// Archivo: optimization_example.mc++
+// Descripción: Ejemplo de implementación de optimización adaptativa en MC++
+// Propósito: Demostrar el uso de funciones para la administración dinámica de recursos y balanceo de carga
+
+IMPORTAR "adaptive_optimization"  // Importa la librería de optimización adaptativa
+
+// Estructura de Nodo para simular un sistema distribuido
+STRUCT Nodo {
+    id: STRING
+    carga_cpu: FLOAT
+    carga_memoria: FLOAT
+    conexiones_activas: INT
+    max_conexiones: INT
+}
+
+// Función para ajustar la asignación de CPU según la carga
+FUNC ajustarCPU(nodo: Nodo, factor_carga: FLOAT): VOID {
+    VAR asignacion_cpu = factor_carga * 100  // Simula el cálculo de asignación de CPU
+    SI asignacion_cpu > 100 {
+        asignacion_cpu = 100
+    }
+    MOSTRAR("Asignación de CPU para " + nodo.id + ": " + asignacion_cpu + "%")
+}
+
+// Función para balancear carga entre nodos de acuerdo a conexiones activas
+FUNC balancearCarga(nodos: LIST, max_conexiones: INT): Nodo {
+    VAR nodo_objetivo = NULO
+    VAR min_conexiones = max_conexiones
+
+    PARA nodo EN nodos {
+        SI nodo.conexiones_activas < min_conexiones {
+            min_conexiones = nodo.conexiones_activas
+            nodo_objetivo = nodo
+        }
+    }
+
+    MOSTRAR("Nodo objetivo para balanceo: " + nodo_objetivo.id)
+    RETORNAR nodo_objetivo
+}
+
+// Función para liberar recursos inactivos y optimizar memoria
+FUNC liberarRecursos(nodos: LIST, umbral: FLOAT): VOID {
+    PARA nodo EN nodos {
+        SI nodo.carga_memoria < umbral {
+            nodo.carga_memoria = 0  // Simula la liberación de memoria
+            MOSTRAR("Memoria liberada en nodo: " + nodo.id)
+        }
+    }
+}
+
+// Función principal de demostración
+FUNC main() {
+    MOSTRAR("Ejemplo de Optimización Adaptativa en MC++")
+
+    // Creación de nodos de ejemplo
+    VAR nodo1 = Nodo(id="Nodo1", carga_cpu=0.7, carga_memoria=0.5, conexiones_activas=10, max_conexiones=20)
+    VAR nodo2 = Nodo(id="Nodo2", carga_cpu=0.5, carga_memoria=0.4, conexiones_activas=8, max_conexiones=20)
+    VAR nodos = [nodo1, nodo2]
+
+    // Ajuste de CPU basado en la carga actual
+    ajustarCPU(nodo1, nodo1.carga_cpu)
+    ajustarCPU(nodo2, nodo2.carga_cpu)
+
+    // Balanceo de carga entre nodos
+    VAR nodo_balanceado = balancearCarga(nodos, 20)
+
+    // Liberación de recursos inactivos si la carga de memoria es baja
+    liberarRecursos(nodos, 0.6)
+
+    MOSTRAR("Optimización completada.")
+}

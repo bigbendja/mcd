@@ -1,0 +1,67 @@
+// Archivo: security_example.mc++
+// Descripción: Ejemplo de implementación de funciones de seguridad en MC++
+// Propósito: Demostrar el uso de técnicas de autenticación y verificación de integridad en MC++
+
+IMPORTAR "crypto"  // Importa funciones criptográficas para hash y cifrado
+
+// Estructura de Usuario con credenciales y un token de autenticación
+STRUCT Usuario {
+    nombre: STRING
+    contrasena_hash: STRING
+    token_autenticacion: STRING
+}
+
+// Función para generar hash de contraseña
+FUNC generarHashContrasena(contrasena: STRING): STRING {
+    RETORNAR HASH_SHA256(contrasena)
+}
+
+// Función para verificar si una contraseña coincide con el hash almacenado
+FUNC verificarContrasena(contrasena: STRING, contrasena_hash: STRING): BOOL {
+    VAR hash_ingresado = generarHashContrasena(contrasena)
+    RETORNAR hash_ingresado == contrasena_hash
+}
+
+// Función para autenticar al usuario
+FUNC autenticarUsuario(usuario: Usuario, contrasena: STRING): BOOL {
+    SI verificarContrasena(contrasena, usuario.contrasena_hash) {
+        usuario.token_autenticacion = GENERAR_TOKEN()
+        MOSTRAR("Autenticación exitosa. Token de sesión generado.")
+        RETORNAR VERDADERO
+    } SINO {
+        MOSTRAR("Autenticación fallida. Contraseña incorrecta.")
+        RETORNAR FALSO
+    }
+}
+
+// Función para verificar integridad de datos mediante hash
+FUNC verificarIntegridadDatos(datos: STRING, hash_original: STRING): BOOL {
+    VAR hash_datos = HASH_SHA256(datos)
+    SI hash_datos == hash_original {
+        MOSTRAR("La integridad de los datos es válida.")
+        RETORNAR VERDADERO
+    } SINO {
+        MOSTRAR("Los datos han sido modificados o están corruptos.")
+        RETORNAR FALSO
+    }
+}
+
+// Función principal de demostración
+FUNC main() {
+    MOSTRAR("Ejemplo de Seguridad en MC++")
+
+    // Creación de un usuario con hash de contraseña
+    VAR usuario = Usuario(nombre="usuarioEjemplo", contrasena_hash=generarHashContrasena("mi_contrasena_segura"))
+
+    // Autenticación del usuario
+    VAR autenticado = autenticarUsuario(usuario, "mi_contrasena_segura")
+
+    SI autenticado {
+        // Demostración de verificación de integridad de datos
+        VAR datos_originales = "Este es un mensaje seguro."
+        VAR hash_datos_originales = HASH_SHA256(datos_originales)
+
+        // Simulación de verificación de integridad
+        verificarIntegridadDatos(datos_originales, hash_datos_originales)
+    }
+}

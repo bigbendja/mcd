@@ -1,0 +1,56 @@
+// Archivo: basic_example.mc++
+// Descripción: Ejemplo básico de uso de MC++
+// Propósito: Introducir los elementos básicos del lenguaje, como estructuras de control, tipos de datos, y operaciones
+
+// Declaración de variables
+VAR saludo: STRING = "Bienvenido a MC++"
+VAR numero_entero: INT = 42
+VAR numero_flotante: FLOAT = 3.14159
+VAR es_activo: BOOL = VERDADERO
+
+// Función simple para mostrar un mensaje
+FUNC mostrarMensaje(mensaje: STRING): VOID {
+    MOSTRAR(mensaje)
+}
+
+// Estructura de control: Condicional
+FUNC verificarEstado(estado: BOOL): STRING {
+    SI estado == VERDADERO {
+        RETORNAR "El sistema está activo."
+    } MAS {
+        RETORNAR "El sistema está inactivo."
+    }
+}
+
+// Estructura de control: Bucle
+FUNC contarHasta(limite: INT): VOID {
+    PARA i = 1 HASTA limite HACER {
+        MOSTRAR("Cuenta: " + i)
+    }
+}
+
+// Estructura de datos: Persona
+STRUCT Persona {
+    nombre: STRING
+    edad: INT
+
+    FUNC mostrarInfo(): VOID {
+        MOSTRAR("Nombre: " + nombre + ", Edad: " + edad)
+    }
+}
+
+// Función principal
+FUNC main() {
+    // Uso de variables
+    mostrarMensaje(saludo)
+
+    // Condicional simple
+    MOSTRAR(verificarEstado(es_activo))
+
+    // Bucle
+    contarHasta(5)
+
+    // Uso de estructura
+    VAR persona = Persona(nombre="Juan", edad=30)
+    persona.mostrarInfo()
+}
