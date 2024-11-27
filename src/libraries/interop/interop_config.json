@@ -1,0 +1,58 @@
+{
+    "version": "1.1",
+    "paths": {
+        "python_interpreter": "/usr/bin/python3",
+        "cpp_compiler": "/usr/bin/g++",
+        "rust_compiler": "/usr/bin/rustc"
+    },
+    "security_policy": {
+        "allowed_modules": ["numpy", "pandas", "math", "json", "os", "sys"],
+        "allowed_functions": {
+            "numpy": ["array", "zeros", "ones", "linspace"],
+            "pandas": ["DataFrame", "read_csv", "merge"],
+            "math": ["sqrt", "pow", "factorial", "log"],
+            "json": ["loads", "dumps"],
+            "os": ["getcwd", "listdir"],
+            "sys": ["argv", "path"]
+        },
+        "cpp_libraries": ["/usr/local/libnumerics.so", "/usr/local/libgraphics.so"],
+        "rust_crates": ["serde", "tokio"]
+    },
+    "performance_constraints": {
+        "max_runtime_ms": 5000,
+        "memory_limit_mb": 1024
+    },
+    "data_handling": {
+        "float_precision": 6,
+        "encoding": "UTF-8",
+        "date_format": "YYYY-MM-DD"
+    },
+    "logging": {
+        "audit_enabled": true,
+        "log_path": "/var/log/mcpp/interop",
+        "log_level": "DEBUG",
+        "max_log_size_mb": 100
+    },
+    "error_management": {
+        "retry_count": 5,
+        "retry_delay_ms": 1000,
+        "fallback_on_error": "safe_mode"
+    },
+    "language_specific": {
+        "python": {
+            "virtual_environment": "/opt/mcpp_env",
+            "extra_module_path": "/usr/local/lib/python3.8/site-packages",
+            "max_parallel_calls": 10
+        },
+        "cpp": {
+            "library_paths": ["/usr/local/lib", "/opt/cpp_libs"],
+            "compiler_flags": ["-O3", "-Wall"],
+            "max_threads": 4
+        },
+        "rust": {
+            "cargo_home": "/usr/bin/cargo",
+            "build_target_dir": "/opt/rust_targets",
+            "async_support": true
+        }
+    }
+}
