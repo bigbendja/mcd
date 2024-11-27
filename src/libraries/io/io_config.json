@@ -1,0 +1,44 @@
+{
+  "file_management": {
+      "default_directory": "/var/data/",
+      "allowed_extensions": [".txt", ".csv", ".log", ".json", ".xml"],
+      "max_file_size_mb": 100,
+      "auto_backup": true,
+      "backup_directory": "/var/backups/",
+      "temp_directory": "/var/temp/",
+      "read_only_directories": ["/var/system/"]
+  },
+  "user_input": {
+      "max_input_length": 2048,
+      "required_fields": ["username", "password", "email"],
+      "input_timeout_seconds": 60,
+      "enable_masking": true,
+      "allowed_special_characters": "!@#$%^&*()_+-="
+  },
+  "output_formatting": {
+      "default_format": "json",
+      "precision": 4,
+      "date_format": "YYYY-MM-DD",
+      "enable_colors": true,
+      "log_levels": {
+          "error": "RED",
+          "warning": "YELLOW",
+          "info": "BLUE",
+          "success": "GREEN"
+      },
+      "progress_bar_style": {
+          "filled_char": "█",
+          "empty_char": "-"
+      }
+  },
+  "logging": {
+      "enable_logging": true,
+      "log_directory": "/var/logs/io/",
+      "log_level": "INFO",
+      "max_log_size_mb": 50,
+      "log_rotation": true,
+      "retention_days": 14,
+      "include_timestamps": true,
+      "log_format": "[{timestamp}] {level}: {message}"
+  }
+}
