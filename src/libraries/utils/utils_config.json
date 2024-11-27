@@ -1,0 +1,35 @@
+{
+    "log_settings": {
+        "log_level": "INFO",
+        "log_file_path": "./logs/utils_log.txt",
+        "max_log_file_size": 10485760,
+        "log_rotation": true,
+        "max_backup_logs": 5
+    },
+    "file_utils_settings": {
+        "default_read_directory": "./data/input/",
+        "default_write_directory": "./data/output/",
+        "file_encoding": "UTF-8",
+        "read_buffer_size": 1024,
+        "write_buffer_size": 1024,
+        "append_mode": true,
+        "max_file_size": 5242880
+    },
+    "string_utils_settings": {
+        "default_case": "lower",
+        "trim_whitespace": true,
+        "default_trim_characters": " \t\n\r",
+        "max_split_tokens": 100,
+        "precision_default": 2
+    },
+    "config_settings": {
+        "config_file_path": "./config/utils_config.json",
+        "auto_reload": true,
+        "reload_interval_seconds": 300
+    },
+    "performance_settings": {
+        "enable_optimizations": true,
+        "cache_size_limit_mb": 50,
+        "cache_eviction_policy": "LRU"
+    }
+}
