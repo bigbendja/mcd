@@ -1,0 +1,30 @@
+name: MC++ Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update && sudo apt install -y build-essential g++ cmake libjsoncpp-dev
+
+      - name: Build Project
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          make
+
+      - name: Run Tests
+        run: |
+          cd build/tests
+          ./test_suite
