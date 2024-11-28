@@ -7,8 +7,10 @@ INCLUDES := -I./include
 
 # Definir directorios de fuente y destino
 SRCDIR := src
+TESTDIR := test
 BUILDDIR := build
 TARGET := bin/mc++
+TESTTARGET := $(BUILDDIR)/tests/test_suite
 
 # Recopilar todos los archivos fuente
 SRCS := $(wildcard $(SRCDIR)/**/*.cpp $(SRCDIR)/*.cpp)
@@ -26,6 +28,16 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
+# Regla para compilar las pruebas
+$(TESTTARGET): $(wildcard $(TESTDIR)/*.cpp)
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $^ -o $@
+
+# Regla para ejecutar pruebas
+test: $(TESTTARGET)
+	@echo "Ejecutando pruebas"
+	@./$(TESTTARGET)
+
 # Limpieza de archivos objeto y binarios
 clean:
 	rm -rf $(BUILDDIR) $(TARGET)
@@ -39,11 +51,6 @@ install: $(TARGET)
 uninstall:
 	@echo "Eliminando MC++ de /usr/local/bin"
 	rm -f /usr/local/bin/mc++
-
-# Ejecutar pruebas
-test: $(TARGET)
-	@echo "Ejecutando pruebas"
-	@./tests/run_tests.sh
 
 # Documentación
 docs:
